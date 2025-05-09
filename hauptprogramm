@@ -1,0 +1,106 @@
+import sum.kern.*;
+
+/**
+ * Beschreiben Sie hier die Klasse Grafik1.
+ * 
+ * @Jannis Cvijanovic 
+ * @02.05.2025
+ */
+public class Grafik1
+{
+    // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
+    Bildschirm derBildschirm;
+    Maus dieMaus;
+    Tastatur dieTastatur;
+    Kreis Kreis1;
+    Kreis Kreis2;
+    Kreis Kreis3;
+    Kreis aktiverKreis;
+
+    /**
+     * Konstruktor für Objekte der Klasse Grafik1
+     */
+    public Grafik1()
+    {
+        derBildschirm = new Bildschirm(1000, 1000);
+        dieMaus = new Maus();
+        dieTastatur = new Tastatur();
+        Kreis1 = new Kreis(500, 400, 100);
+        Kreis2 = new Kreis(600, 300, 80);
+        Kreis3 = new Kreis(800, 100, 110);
+    }
+
+    public void fuehreAus()
+    {
+        Kreis1.zeichne();
+        Kreis2.zeichne();
+        Kreis3.zeichne();
+        aktiverKreis = Kreis1;
+        Kreis1.aktiviere();
+        
+        if (dieMaus.istGedrueckt())
+            {
+                aktiverKreis.deaktiviere();
+                if (Kreis1.getroffen(500, 400))
+                {
+                    aktiverKreis = Kreis1;
+                }
+                if (Kreis2.getroffen(600, 300))
+                {
+                    aktiverKreis = Kreis2;
+                }
+                 if (Kreis3.getroffen(800, 100))
+                {
+                    aktiverKreis = Kreis3;
+                }
+                aktiverKreis.aktiviere();
+        }
+        
+        if (dieTastatur.wurdeGedrueckt())
+            {
+                switch(dieTastatur.zeichen())
+                {
+                    case Zeichen.PFEILOBEN:
+                        aktiverKreis.bewegeUm(0, -10);
+                        break;
+                    case Zeichen.PFEILUNTEN:
+                        aktiverKreis.bewegeUm(0, 10);
+                        break;
+                    case Zeichen.PFEILLINKS:
+                        aktiverKreis.bewegeUm(-10, 0);
+                        break;
+                    case Zeichen.PFEILRECHTS:
+                        aktiverKreis.bewegeUm(10, 0);
+                        break;
+                    case '1':
+                        aktiverKreis.setzeGroesse(10);
+                        break;
+                    case '2':
+                        aktiverKreis.setzeGroesse(20);
+                        break;
+                    case '3':
+                        aktiverKreis.setzeGroesse(30);
+                        break;
+                    case '4':
+                        aktiverKreis.setzeGroesse(40);
+                        break;         
+                    case '5':
+                        aktiverKreis.setzeGroesse(50);
+                        break;
+                    case '6':
+                        aktiverKreis.setzeGroesse(60);
+                        break;
+                    case '7':
+                        aktiverKreis.setzeGroesse(70);
+                        break;
+                    case '8':
+                        aktiverKreis.setzeGroesse(80);
+                        break;
+                    case '9':
+                        aktiverKreis.setzeGroesse(90);
+                        break;  
+                }
+            }
+            
+    }
+}
