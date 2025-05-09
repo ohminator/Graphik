@@ -1,0 +1,128 @@
+import sum.kern.*;
+
+/**
+ * Beschreiben Sie hier die Klasse Grafik1.
+ * 
+ * @Easton Heringer
+ * @02.05.2025
+ */
+public class Grafik2
+{
+    // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
+    Bildschirm derBildschirm;
+    Maus dieMaus;
+    Tastatur dieTastatur;
+    Quadrat Quadrat1;
+    Quadrat Quadrat2;
+    Quadrat Quadrat3;
+    Quadrat aktivesQuadrat;
+
+    /**
+     * Konstruktor für Objekte der Klasse Grafik1
+     */
+    public Grafik2()
+    {
+        derBildschirm = new Bildschirm(1000, 1000);
+        dieMaus = new Maus();
+        dieTastatur = new Tastatur();
+        Quadrat1 = new Quadrat(500, 400, 100);
+        Quadrat2 = new Quadrat(600, 300, 80);
+        Quadrat3 = new Quadrat(800, 100, 110);
+    }
+
+    public void fuehreAus()
+    {
+        Quadrat1.zeichne();
+        Quadrat2.zeichne();
+        Quadrat3.zeichne();
+        aktivesQuadrat = Quadrat1;
+        Quadrat1.aktiviere();
+        do {
+            if (dieMaus.istGedrueckt())
+            {
+                aktivesQuadrat.deaktiviere();
+                if (Quadrat1.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                {
+                    aktivesQuadrat = Quadrat1;
+                }
+                if (Quadrat2.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                {
+                    aktivesQuadrat = Quadrat2;
+                }
+                 if (Quadrat3.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                {
+                    aktivesQuadrat = Quadrat3;
+                }
+                aktivesQuadrat.aktiviere();
+            }
+            
+            if (dieTastatur.wurdeGedrueckt())
+            {
+                switch(dieTastatur.zeichen())
+                {
+                    case Zeichen.PFEILOBEN:
+                        aktivesQuadrat.bewegeUm(0, -10);
+                        break;
+                    case Zeichen.PFEILUNTEN:
+                        aktivesQuadrat.bewegeUm(0, 10);
+                        break;
+                    case Zeichen.PFEILLINKS:
+                        aktivesQuadrat.bewegeUm(-10, 0);
+                        break;
+                    case Zeichen.PFEILRECHTS:
+                        aktivesQuadrat.bewegeUm(10, 0);
+                        break;
+                    case '1':
+                        aktivesQuadrat.setzeGroesse(10);
+                        break;
+                    case '2':
+                        aktivesQuadrat.setzeGroesse(20);
+                        break;
+                    case '3':
+                        aktivesQuadrat.setzeGroesse(30);
+                        break;
+                    case '4':
+                        aktivesQuadrat.setzeGroesse(40);
+                        break;         
+                    case '5':
+                        aktivesQuadrat.setzeGroesse(50);
+                        break;
+                    case '6':
+                        aktivesQuadrat.setzeGroesse(60);
+                        break;
+                    case '7':
+                        aktivesQuadrat.setzeGroesse(70);
+                        break;
+                    case '8':
+                        aktivesQuadrat.setzeGroesse(80);
+                        break;
+                    case '9':
+                        aktivesQuadrat.setzeGroesse(90);
+                        break;
+                    case 'r':
+                        aktivesQuadrat.setzeFarbe(Farbe.ROT);
+                        break;
+                    case 'g':
+                        aktivesQuadrat.setzeFarbe(Farbe.GRUEN);
+                        break;
+                    case 'b':
+                        aktivesQuadrat.setzeFarbe(Farbe.BLAU);
+                        break;
+                    case 'y':
+                        aktivesQuadrat.setzeFarbe(Farbe.GELB);
+                        break;
+                    case 'p':
+                        aktivesQuadrat.setzeFarbe(Farbe.PINK);
+                        break;
+                    case 'o':
+                        aktivesQuadrat.setzeFarbe(Farbe.ORANGE);
+                        break;
+                    case 's':
+                        aktivesQuadrat.setzeFarbe(Farbe.SCHWARZ);
+                        break;
+                }
+                dieTastatur.weiter();
+            }
+        } while (!dieMaus.doppelKlick());
+    }
+}
