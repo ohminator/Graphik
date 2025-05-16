@@ -1,0 +1,152 @@
+import sum.kern.*;
+
+public class Grafik1
+{
+    //Bezugsobjekte
+    
+    Bildschirm derBildschirm;
+    Tastatur dieTastatur;
+    Maus dieMaus;
+    Kreis meinKreis1,meinKreis2, meinKreis3;
+    figur aktiveFigur;
+    Quadrat Quadrat1, Quadrat2, Quadrat3;
+    Rechteck Rechteck1;
+    Dreieck Dreieck1; 
+    
+    public Grafik1()
+    {
+        // Initialisierung
+        derBildschirm = new Bildschirm(1000,1000);
+        dieTastatur = new Tastatur();
+        dieMaus = new Maus();
+        meinKreis1 = new Kreis(100, 100, 50);
+        meinKreis2 = new Kreis(300, 200, 100);
+        meinKreis3 = new Kreis(500, 100, 100);
+        Quadrat1 = new Quadrat(900, 900, 80);
+        Quadrat2 = new Quadrat(400, 300, 70);
+        Quadrat3 = new Quadrat(500, 200, 75);
+        Rechteck1 = new Rechteck(200, 700, 60);
+        Dreieck1 = new Dreieck(600, 700, 80);
+        
+      }
+      
+      public void fuehreAus() {
+        // Aktionsteil
+        aktiveFigur = meinKreis1;
+        aktiveFigur.aktiviere();
+       
+
+        do
+        {
+            if (dieMaus.istGedrueckt())
+            {
+                if (!aktiveFigur.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                {
+                    aktiveFigur.deaktiviere();
+                    if (meinKreis1.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                            aktiveFigur = meinKreis1;
+                    if (meinKreis2.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                            aktiveFigur = meinKreis2;
+                    if (meinKreis3.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                            aktiveFigur = meinKreis3;
+                    if (Quadrat1.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                            aktiveFigur = Quadrat1;
+                    if (Quadrat2.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                            aktiveFigur = Quadrat2;
+                    if (Quadrat3.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                            aktiveFigur = Quadrat3;
+                    if (Rechteck1.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                            aktiveFigur = Rechteck1;
+                    if (Dreieck1.getroffen(dieMaus.hPosition(), dieMaus.vPosition()))
+                            aktiveFigur = Dreieck1;
+                    
+                        aktiveFigur.aktiviere();
+                    } // if
+                
+            } // if
+            
+            if (dieTastatur.wurdeGedrueckt())
+            {
+                switch (dieTastatur.zeichen())
+                {
+                    case Zeichen.PFEILOBEN:
+                            aktiveFigur.bewegeUm(0,-10);
+                            break;
+                    case Zeichen.PFEILUNTEN:
+                            aktiveFigur.bewegeUm(0,10);
+                            break;
+                    case Zeichen.PFEILLINKS:
+                            aktiveFigur.bewegeUm(-10,0);
+                            break;
+                    case Zeichen.PFEILRECHTS:
+                            aktiveFigur.bewegeUm(10,0);
+                            break;
+                    case '1':
+                            aktiveFigur.setzeGroesse(20);
+                            break;
+                    case '2':
+                            aktiveFigur.setzeGroesse(40);
+                            break;
+                    case '3':
+                            aktiveFigur.setzeGroesse(60);
+                            break;
+                    case '4':
+                            aktiveFigur.setzeGroesse(80);
+                            break;
+                    case '5':
+                            aktiveFigur.setzeGroesse(100);
+                            break;
+                    case '6':
+                            aktiveFigur.setzeGroesse(120);
+                            break;
+                    case '7':
+                            aktiveFigur.setzeGroesse(140);
+                            break;
+                    case '8':
+                            aktiveFigur.setzeGroesse(160);
+                            break;
+                    case '9':
+                            aktiveFigur.setzeGroesse(180);
+                            break;
+                    case 'r':
+                            aktiveFigur.setzeFarbe(Farbe.ROT);
+                            break;
+                    case 'g':
+                            aktiveFigur.setzeFarbe(Farbe.GRUEN);
+                            break;
+                    case 'b':
+                            aktiveFigur.setzeFarbe(Farbe.BLAU);
+                            break;
+                    case 's':
+                            aktiveFigur.setzeFarbe(Farbe.SCHWARZ);
+                            break;
+                    case 'o':
+                            aktiveFigur.setzeFarbe(Farbe.ORANGE);
+                            break;
+                    case 'c':
+                            aktiveFigur.setzeFarbe(Farbe.CYAN);
+                            break;
+                    case 'm':
+                            aktiveFigur.setzeFarbe(Farbe.MAGENTA);
+                            break;
+                } // switch
+                dieTastatur.weiter();
+            } // if
+        }
+        while (!dieMaus.doppelKlick());
+        
+        // Aufraeumen
+        meinKreis1.gibFrei();
+        meinKreis2.gibFrei();
+        meinKreis3.gibFrei();
+        Quadrat1.gibFrei();
+        Quadrat2.gibFrei();
+        Quadrat3.gibFrei();
+        Rechteck1.gibFrei();
+        Dreieck1.gibFrei();
+        dieMaus.gibFrei();
+        dieTastatur.gibFrei();
+        derBildschirm.gibFrei();
+    }
+}
+
