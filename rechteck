@@ -1,0 +1,31 @@
+import sum.kern.*;
+
+public class Rechteck extends figur
+{
+    // Objektnamen
+    //Buntstift hatStift;
+    
+    //Konstruktor
+    public Rechteck(double pHPosition, double pVPosition, double pGroesse)
+    {
+        super(pHPosition, pVPosition, pGroesse);
+        //hatStift = new Buntstift();
+        zGroesse = pGroesse;
+    }
+    
+    // andere Dienste
+    public void zeichne()
+    {
+        hatStift.runter();
+        hatStift.zeichneRechteck(zGroesse * 1.5, zGroesse);
+        
+        //super.zeichne();
+    }
+
+    public boolean getroffen(double pHPosition, double pVPosition)
+    {
+        return (pHPosition - this.hPosition()) * (pHPosition - this.hPosition())
+            + (pVPosition - this.vPosition()) * (pVPosition - this.vPosition())
+            <= zGroesse * zGroesse;
+    }
+}
