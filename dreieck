@@ -1,0 +1,42 @@
+import sum.kern.*;
+/**
+ * @author 
+ * @version 
+ */
+public class Dreieck extends Figur
+{
+    // Objekte
+    
+    // Attribute
+    double zVPosition;
+    double zHPosition;
+    
+    // Konstruktor
+    public Dreieck(double pHPosition, double pVPosition, double pGroesse)
+    {
+        super(pHPosition, pVPosition, pGroesse);
+        zVPosition = pVPosition;
+        zHPosition = pHPosition;
+    }
+    // Dienste
+    public void zeichne()
+    {
+        hatStift.runter();
+        hatStift.dreheUm(-90);
+        hatStift.bewegeUm(zGroesse);
+        hatStift.dreheUm(90);
+        hatStift.bewegeUm(zGroesse);
+        hatStift.dreheUm(135);
+        hatStift.bewegeUm(Math.sqrt((zGroesse*zGroesse) + (zGroesse*zGroesse)));
+        hatStift.dreheUm(-135);
+        hatStift.hoch();
+    }
+    
+    public boolean getroffen(double pHPosition, double pVPosition)
+    {
+        return (pHPosition - this.hPosition()) * (pHPosition - this.hPosition())
+            + (pVPosition - this.vPosition()) * (pVPosition - this.vPosition())
+            /2
+            <= zGroesse * zGroesse;
+    }
+}
